@@ -1,0 +1,27 @@
+.Burger {
+    width: 100%;
+    margin: auto;
+    height: 250px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+@media(min-width:1000px) {
+    .Burger {
+        width: 500px;
+        margin: auto;
+        height: 250px;
+        overflow-y: auto;
+        text-align: center;
+    }
+}
+
+@media(min-width:500px) {
+    .Burger {
+        width: 400px;
+        margin: auto;
+        height: 250px;
+        overflow-y: auto;
+        text-align: center;
+    }
+}
