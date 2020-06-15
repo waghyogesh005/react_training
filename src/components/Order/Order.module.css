@@ -1,0 +1,14 @@
+.Order {
+    width: 100%;
+    border: 1px solid #eeeeee;
+    box-shadow: 0px 2px 3px #ccc;
+    padding: 10px;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+.Order span {
+    display: inline-block;
+    border:  1px dashed firebrick;
+    margin: 2px;
+    padding: 3px;
+}

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Button from '../UI/Button/Button';
+import Button from '../../UI/Button/Button';
 
 // const OrderSummary = (props) => {
 //     let ingredients = Object.keys(props.ingredients).map(
