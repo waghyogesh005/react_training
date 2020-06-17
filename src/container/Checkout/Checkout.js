@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import ContactData from './ContactData/ContactData';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import {connect}  from 'react-redux';
-
+import Aux from '../../hoc/Aux/Aux';
+import * as actionCreator from '../../store/action/index'; 
 
 class Checkout extends Component {
     onCheckoutCancelledHandler = ()=>{
@@ -17,15 +18,21 @@ class Checkout extends Component {
     render() {
         return (
             <div>
-                   <CheckoutSummary
-                    ingredients={this.props.ings_}
-                    checkoutCancelled={this.onCheckoutCancelledHandler}
-                    checkoutContinued={this.onCheckoutContinueHandler}
-                    ></CheckoutSummary>
-                    <Route
-                    path= {this.props.match.path+"/contact-data"}
-                    component = {ContactData}
-                    ></Route>
+                {
+                           this.props.ings_== null || this.props.purchased_ ? <Redirect to = '/'/> :
+                        <Aux>
+                            <CheckoutSummary
+                           ingredients={this.props.ings_}
+                           checkoutCancelled={this.onCheckoutCancelledHandler}
+                           checkoutContinued={this.onCheckoutContinueHandler}
+                           ></CheckoutSummary>
+                           <Route
+                           path= {this.props.match.path+"/contact-data"}
+                           component = {ContactData}
+                           ></Route>
+                        </Aux>
+                       
+                }
             </div>
         );
     }
@@ -33,7 +40,8 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
  return {
-    ings_ : state.ingredients,
+    ings_ : state.burger.ingredients,
+    purchased_ : state.order.purchased
  }
 }
 
