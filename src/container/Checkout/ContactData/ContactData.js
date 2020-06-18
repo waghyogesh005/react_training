@@ -129,7 +129,7 @@ class ContactData extends Component {
             orderData: formData
         }
 
-        this.props.onOrderBurger_(data);
+        this.props.onOrderBurger_(data,this.props.token_);
     }
 
     inputChangeHandler = (event, inputIdentifier) =>{
@@ -148,7 +148,6 @@ class ContactData extends Component {
             orderForm: updatedOrderForm,
             formIsValid: formIsValid
         })
-        console.log("this", this.state.orderForm);
     }
     render() {
         const formElementsArray = [];
@@ -195,13 +194,14 @@ const mapStateToProps = state => {
     return {
        ings_ : state.burger.ingredients,
        totalPrice_ : state.burger.totalPrice,
-       loading_ : state.order.loading
+       loading_ : state.order.loading,
+       token_: state.auth.token
     }
    }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBurger_: (data)=> dispatch(actionCreator.purchaseBurger(data))
+        onOrderBurger_: (data,token)=> dispatch(actionCreator.purchaseBurger(data,token))
     }
  }
 export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(ContactData,orderAxios));

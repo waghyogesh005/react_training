@@ -13,21 +13,7 @@ class Orders extends Component {
     }
 
     componentDidMount(){
-        this.props.onFetchOrders_();
-        // orderAxios.get('/orders.json')
-        // .then(response=>{
-        //     const fetchData=[];
-        //     for(let key in response.data) {
-        //         fetchData.push({
-        //             id: key,
-        //             ...response.data[key]
-        //         })
-        //     }
-        //     this.setState({orders:fetchData,loading: false});
-        // })
-        // .catch(error=>{
-        //     this.setState({loading: false});
-        // })
+        this.props.onFetchOrders_(this.props.token_);
     }
     render() {
         return (
@@ -49,13 +35,14 @@ class Orders extends Component {
 const mapStateToProps = state =>{
     return {
         orders_ : state.order.orders,
-        loading_: state.order.loading
+        loading_: state.order.loading,
+        token_: state.auth.token
     }
 }
 
 const mapDispatchToProps = dispatch =>{
     return {
-        onFetchOrders_ :() => dispatch(actionCreator.fetchOrder())
+        onFetchOrders_ :(token_) => dispatch(actionCreator.fetchOrder(token_))
     }
 }
 
