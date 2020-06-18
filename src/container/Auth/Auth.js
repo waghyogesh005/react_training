@@ -44,6 +44,12 @@ class Auth extends Component {
         isSignUp: true
     }
 
+    componentDidMount(){
+        if(!this.props.buildingBurger_ && this.props.authRedirectPath_!=='/'){
+            this.props.onSetAuthRedirectPath_('/')
+        }
+    }
+
 
     checkValidity= (value,rules) =>{
         let isValid = true;
@@ -134,9 +140,15 @@ class Auth extends Component {
             formEle = <Spinner></Spinner>
         }
         let errorMessage = this.props.error_ ? <p style={{color:'red'}}>{this.props.error_.message}</p> : null;
+        
+        let authRedirect = null;
+        if (this.props.isAuth_) {
+            authRedirect = <Redirect to={this.props.authRedirectPath_}/>
+        }
+
         return (
             <div className={classes.Auth}>
-                {this.props.isAuth_? <Redirect to="/" /> : null}
+               {authRedirect}
                 {formEle}
                 {errorMessage}
                 <Button btnType="Danger"  clicked={this.onSwitchSignInHandler}>
@@ -151,15 +163,20 @@ const mapStateToProps = props => {
     return {
         loading_: props.auth.loading,
         error_: props.auth.error,
-        isAuth_: props.auth.token!==null
+        isAuth_: props.auth.token!==null,
+        buildingBurger_: props.burger.building,
+        authRedirectPath_: props.auth.authRedirectPath
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth_: (email,password, isSignup) => dispatch(actionCreator.auth(email,password,isSignup))
+        onAuth_: (email,password, isSignup) => dispatch(actionCreator.auth(email,password,isSignup)),
+        onSetAuthRedirectPath_ : (path)=> dispatch(actionCreator.setAuthRedirectPath(path))
+
     }
 }
 
 //withErrorHandler
 export default  connect(mapStateToProps,mapDispatchToProps)(Auth);
+
