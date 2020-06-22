@@ -146,7 +146,7 @@ const mapStateToProps = state => {
 }
 
 
-const mapDispatchToState = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
         onInitIngredients_: ()=> dispatch(actionCreator.initIngredients()),
         onIngredientAdded_ : (ingName)=> dispatch(actionCreator.addIngredient(ingName)),
@@ -156,4 +156,4 @@ const mapDispatchToState = dispatch => {
     }
 }
 
-export default  connect(mapStateToProps,mapDispatchToState)(withErrorHandler(BurgerBuilder,orderAxios));
+export default  connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder,orderAxios));

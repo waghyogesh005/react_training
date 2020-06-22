@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import logo from './logo.svg';
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './container/BurgerBuilder/BurgerBuilder';
-import Checkout from './container/Checkout/Checkout';
+// import Checkout from './container/Checkout/Checkout';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import Orders from './container/Orders/Orders';
 import Auth from './container/Auth/Auth';
@@ -10,11 +10,20 @@ import Logout from './container/Auth/Logout/Logout';
 import { connect } from 'react-redux';
 import * as actionCreator from './store/action/index';
 
-class App extends Component {
-  componentDidMount(){
-    this.props.onTryAutoSignUp_();
-  }
-  render() {
+const AsyncCheckout = React.lazy(()=>{
+  return import('./container/Checkout/Checkout');
+})
+
+
+const AsyncOrders = React.lazy(()=>{
+  return import('./container/Orders/Orders');
+})
+
+const App = (props) => {
+  useEffect(()=>{
+    props.onTryAutoSignUp_();
+  });
+
     let authRoute = (
       <Switch>
         <Route path ="/auth" component={Auth}></Route>
@@ -22,10 +31,10 @@ class App extends Component {
         <Redirect to='/'/>
     </Switch>
     )
-    if(this.props.isAuth) {
+    if(props.isAuth) {
       authRoute = <Switch>
-          <Route path ="/checkout" component={Checkout}></Route>
-          <Route path ="/orders" component={Orders}></Route>
+          <Route path ="/checkout" render={(props)=> <AsyncCheckout {...props}></AsyncCheckout>}></Route>
+          <Route path ="/orders" render={()=> <AsyncOrders></AsyncOrders>}></Route>
           <Route path ="/logout" component={Logout}></Route>
           <Route path ="/auth" component={Auth}></Route>
           <Route path ="/"  component={BurgerBuilder}></Route>
@@ -35,11 +44,10 @@ class App extends Component {
     return (
       <div>
         <Layout>
-          {authRoute}
+          <Suspense fallback="...loading">{authRoute}</Suspense>
         </Layout>
       </div>
     );
-  }
 }
 
 const mapStateToProps = state => {
