@@ -4,7 +4,7 @@ import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './container/BurgerBuilder/BurgerBuilder';
 // import Checkout from './container/Checkout/Checkout';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-import Orders from './container/Orders/Orders';
+// import Orders from './container/Orders/Orders';
 import Auth from './container/Auth/Auth';
 import Logout from './container/Auth/Logout/Logout';
 import { connect } from 'react-redux';
@@ -20,9 +20,10 @@ const AsyncOrders = React.lazy(()=>{
 })
 
 const App = (props) => {
+  const {onTryAutoSignUp_} = props;
   useEffect(()=>{
     props.onTryAutoSignUp_();
-  });
+  },[onTryAutoSignUp_]);
 
     let authRoute = (
       <Switch>

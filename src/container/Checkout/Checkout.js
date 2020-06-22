@@ -1,8 +1,5 @@
-import React, {
-    Component
-} from 'react';
+import React from 'react';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import ContactData from './ContactData/ContactData';
 import {
     Route,
@@ -13,7 +10,6 @@ import {
     connect
 } from 'react-redux';
 import Aux from '../../hoc/Aux/Aux';
-import * as actionCreator from '../../store/action/index';
 
 const Checkout = props => {
     const onCheckoutCancelledHandler = () => {

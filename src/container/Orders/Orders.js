@@ -10,9 +10,10 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 const Orders = props =>{
 
 
+    const { onFetchOrders_ } = props;
     useEffect(()=>{
         props.onFetchOrders_(props.token_,props.userId_);
-    },[])
+    },[onFetchOrders_])
 
     return (
         <div>
