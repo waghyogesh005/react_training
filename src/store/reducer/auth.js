@@ -23,7 +23,6 @@ const authReducer = (state=initialState, action) =>{
                 loading: false
             }    
         case actionType.AUTH_SUCCESS: 
-        console.log(action)
             return {
                 ...state,
                 loading: false,

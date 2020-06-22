@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classes from './BurgerIngredient.module.css'
 
-class BurgerIngredient extends Component {
-    render () {
-        let ingredient = null;
-        switch (this.props.type) {
+const BurgerIngredient = props => {
+    let ingredient = null;
+        switch (props.type) {
             case "bread-bottom":
                 ingredient = <div className={classes.BreadBottom}></div>
                 break;
@@ -35,7 +34,6 @@ class BurgerIngredient extends Component {
                 break;
         }
         return ingredient
-    }
 }
 
 BurgerIngredient.propTypes = {
